@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#061326">
+<meta name="robots" content="noindex">
+<title>Lotus Fidelidade | Balcão</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600&family=Fredoka:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+  .login { max-width: 400px; margin: 0 auto; padding: 24px 20px; }
+  .login .logo { width: 240px; margin: 10px auto 24px; }
+  .painel { background: var(--navy-2); border-radius: 20px; padding: 20px; }
+
+  .topo { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 10; background: var(--navy); border-bottom: 1px solid var(--linha); }
+  .topo-in { max-width: 1180px; margin: 0 auto; padding: 10px 20px; display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
+  .topo img { width: 92px; }
+  .abas { display: flex; gap: 4px; flex: 1; overflow-x: auto; }
+  .abas button { font: inherit; font-weight: 600; background: none; border: 0; color: var(--suave); padding: 9px 14px; border-radius: 999px; cursor: pointer; white-space: nowrap; }
+  .abas button[aria-selected=true] { background: var(--navy-3); color: var(--creme); }
+  #cli-petalas { justify-content: flex-start; gap: 12px; }
+  .quem { color: var(--suave); font-size: .9rem; }
+
+  .conteudo { max-width: 1180px; margin: 0 auto; padding: 22px 20px 60px; }
+
+  /* balcao */
+  .balcao { display: grid; grid-template-columns: minmax(0, 360px) minmax(0, 1fr); gap: 22px; align-items: start; }
+  @media (max-width: 820px) { .balcao { grid-template-columns: 1fr; } }
+  .resultados { list-style: none; padding: 0; margin: 12px 0 0; }
+  .resultados button { width: 100%; text-align: left; font: inherit; color: var(--creme); background: none; border: 0; border-bottom: 1px solid var(--linha); padding: 12px 4px; cursor: pointer; display: flex; justify-content: space-between; gap: 10px; }
+  .resultados button:hover, .resultados button.ativo { background: var(--navy-3); }
+  .resultados small { color: var(--suave); display: block; }
+  .dica { color: var(--suave); font-size: .92rem; }
+  .novo { margin-top: 16px; }
+  .novo-form { margin-top: 14px; border-top: 1px solid var(--linha); padding-top: 16px; }
+
+  .cli-topo { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; align-items: flex-start; }
+  .cli-tel { color: var(--suave); }
+  .numeros { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin: 18px 0; }
+  .numeros div { background: var(--navy); border-radius: 14px; padding: 12px; }
+  .numeros strong { font-family: "Fredoka", sans-serif; font-size: 1.45rem; display: block; line-height: 1.2; }
+  .numeros span { color: var(--suave); font-size: .85rem; }
+  @media (max-width: 480px) { .numeros { grid-template-columns: 1fr 1fr; } }
+  .acoes { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 18px; }
+  @media (max-width: 640px) { .acoes { grid-template-columns: 1fr; } }
+  .acao { border: 1.5px solid var(--linha); border-radius: 16px; padding: 16px; }
+  .acao h3 { margin-bottom: 12px; }
+  .preview { color: var(--verde); font-weight: 600; min-height: 1.5em; margin: -6px 0 12px; }
+  .valor { font-family: "Fredoka", sans-serif; font-size: 1.4rem !important; }
+  .depois { margin-top: 16px; display: flex; gap: 10px; flex-wrap: wrap; }
+
+  /* clientes */
+  .filtros { display: grid; grid-template-columns: 1fr 260px auto; gap: 12px; align-items: end; margin-bottom: 14px; }
+  @media (max-width: 760px) { .filtros { grid-template-columns: 1fr; } }
+  .contagem { color: var(--suave); margin-bottom: 10px; font-size: .92rem; }
+  .tabela-wrap { overflow-x: auto; border: 1px solid var(--linha); border-radius: 16px; }
+  table { width: 100%; border-collapse: collapse; font-size: .93rem; }
+  th, td { text-align: left; padding: 11px 12px; border-bottom: 1px solid var(--linha); white-space: nowrap; }
+  th { color: var(--suave); font-weight: 600; background: var(--navy-2); position: sticky; top: 0; }
+  tbody tr { cursor: pointer; }
+  tbody tr:hover { background: var(--navy-2); }
+  td.num, th.num { text-align: right; }
+
+  /* qr */
+  .qr-card { max-width: 420px; margin: 0 auto; background: var(--navy-2); border-radius: 24px; padding: 28px; text-align: center; }
+  .qr-card img.logo { width: 220px; margin: 0 auto 14px; }
+  #qr { background: #fff; padding: 16px; border-radius: 16px; display: inline-block; margin: 16px 0; }
+  .qr-card p { color: var(--creme); }
+  .qr-url { color: var(--suave); font-size: .85rem; word-break: break-all; margin-top: 8px; }
+
+  @media print {
+    .topo, .nao-imprime { display: none !important; }
+    body { background: var(--navy); -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+
+<div id="aviso-config" class="login" hidden>
+  <div class="painel"><p>Preencha o arquivo config.js com os dados do Supabase para usar o painel.</p></div>
+</div>
+
+<section id="tela-login" class="login" hidden>
+  <img class="logo" src="logo.png" alt="Lotus Papelaria">
+  <form id="form-login" class="painel" novalidate>
+    <h2 style="margin-bottom:16px">Acesso do balcão</h2>
+    <div class="campo"><label for="login-email">E-mail</label><input type="email" id="login-email" autocomplete="username"></div>
+    <div class="campo"><label for="login-senha">Senha</label><input type="password" id="login-senha" autocomplete="current-password"></div>
+    <button class="btn" type="submit">Entrar</button>
+    <p class="msg erro" id="msg-login" role="alert"></p>
+  </form>
+</section>
+
+<div id="app" hidden>
+  <header class="topo">
+    <div class="topo-in">
+      <img src="logo.png" alt="Lotus Papelaria">
+      <nav class="abas" role="tablist">
+        <button type="button" role="tab" data-aba="balcao" aria-selected="true">Balcão</button>
+        <button type="button" role="tab" data-aba="clientes" aria-selected="false">Clientes</button>
+        <button type="button" role="tab" data-aba="qr" aria-selected="false">QR do balcão</button>
+      </nav>
+      <span class="quem" id="quem"></span>
+      <button type="button" class="btn contorno pequeno" id="sair">Sair</button>
+    </div>
+  </header>
+
+  <main class="conteudo">
+    <!-- BALCAO -->
+    <section id="aba-balcao">
+      <div class="balcao">
+        <div class="painel">
+          <label for="busca">Buscar cliente</label>
+          <input type="search" id="busca" placeholder="Nome ou celular" autocomplete="off">
+          <ul class="resultados" id="resultados"></ul>
+          <p class="dica" id="busca-dica">Digite pelo menos 3 letras do nome ou números do celular.</p>
+
+          <button type="button" class="btn contorno novo" id="btn-novo">Cadastrar cliente novo</button>
+          <form id="form-novo" class="novo-form" novalidate hidden>
+            <div class="campo"><label for="novo-nome">Nome completo</label><input type="text" id="novo-nome"></div>
+            <div class="campo"><label for="novo-tel">Celular com DDD</label><input type="tel" id="novo-tel" inputmode="numeric"></div>
+            <div class="campo"><label class="check"><input type="checkbox" id="novo-aceite"> Cliente aceitou receber novidades e promoções pelo WhatsApp</label></div>
+            <button class="btn verde" type="submit">Cadastrar</button>
+            <p class="msg erro" id="msg-novo" role="alert"></p>
+          </form>
+        </div>
+
+        <div>
+          <div class="painel" id="sem-cliente">
+            <h2>Nenhum cliente selecionado</h2>
+            <p class="dica" style="margin-top:8px">Busque pelo nome ou celular ao lado para lançar uma compra ou um resgate.</p>
+          </div>
+
+          <div class="painel" id="cliente" hidden>
+            <div class="cli-topo">
+              <div>
+                <h2 id="cli-nome"></h2>
+                <p class="cli-tel" id="cli-tel"></p>
+              </div>
+              <button type="button" class="btn whats pequeno" id="btn-whats">Mandar saldo no WhatsApp</button>
+            </div>
+
+            <div class="petalas" id="cli-petalas" style="margin-top:18px" aria-hidden="true"></div>
+
+            <div class="numeros">
+              <div><strong id="cli-saldo">0</strong><span>pontos</span></div>
+              <div><strong id="cli-reais">R$ 0,00</strong><span>para resgatar</span></div>
+              <div><strong id="cli-validade">-</strong><span>validade</span></div>
+            </div>
+
+            <div class="acoes">
+              <form class="acao" id="form-compra" novalidate>
+                <h3>Registrar compra</h3>
+                <div class="campo"><label for="compra-valor">Valor da compra (R$)</label>
+                  <input type="text" id="compra-valor" class="valor" inputmode="decimal" placeholder="0,00" autocomplete="off"></div>
+                <p class="preview" id="compra-preview"></p>
+                <button class="btn" type="submit">Registrar compra</button>
+              </form>
+
+              <form class="acao" id="form-resgate" novalidate>
+                <h3>Registrar resgate</h3>
+                <div class="campo"><label for="resgate-blocos">Quanto o cliente vai usar</label>
+                  <select id="resgate-blocos"></select></div>
+                <p class="dica" id="resgate-dica" style="margin:-6px 0 12px"></p>
+                <button class="btn verde" type="submit" id="btn-resgate">Registrar resgate</button>
+              </form>
+            </div>
+
+            <div class="depois" id="depois" hidden>
+              <button type="button" class="btn whats pequeno" id="btn-whats-compra">Avisar cliente no WhatsApp</button>
+            </div>
+
+            <h3 style="margin-top:24px">Movimentações</h3>
+            <ul class="extrato" id="cli-extrato"></ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CLIENTES -->
+    <section id="aba-clientes" hidden>
+      <div class="filtros">
+        <div><label for="f-texto">Buscar</label><input type="search" id="f-texto" placeholder="Nome ou celular"></div>
+        <div><label for="f-tipo">Mostrar</label>
+          <select id="f-tipo">
+            <option value="todos">Todos os clientes</option>
+            <option value="marketing">Aceitaram receber promoções</option>
+            <option value="resgatar">Têm valor para resgatar</option>
+            <option value="vencendo">Pontos vencem em 30 dias</option>
+            <option value="sumidos">Sem comprar há 60 dias ou mais</option>
+            <option value="nunca">Cadastrados que nunca compraram</option>
+          </select></div>
+        <button type="button" class="btn pequeno" id="exportar">Exportar planilha</button>
+      </div>
+      <p class="contagem" id="contagem">Carregando...</p>
+      <div class="tabela-wrap">
+        <table>
+          <thead><tr>
+            <th>Nome</th><th>Celular</th><th class="num">Pontos</th><th class="num">Para resgatar</th>
+            <th class="num">Compras</th><th class="num">Total gasto</th><th>Última compra</th><th>Aceita promoções</th>
+          </tr></thead>
+          <tbody id="lista"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- QR -->
+    <section id="aba-qr" hidden>
+      <div class="qr-card">
+        <img class="logo" src="logo.png" alt="Lotus Papelaria">
+        <h2>Junte pontos nas suas compras</h2>
+        <p style="margin-top:6px" id="qr-regra">Aponte a câmera, faça seu cadastro e acompanhe seus pontos.</p>
+        <div id="qr"></div>
+        <p>Aponte a câmera do celular aqui</p>
+        <p class="qr-url" id="qr-url"></p>
+      </div>
+      <p style="text-align:center;margin-top:18px" class="nao-imprime">
+        <button type="button" class="btn pequeno" onclick="window.print()">Imprimir</button>
+      </p>
+    </section>
+  </main>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="config.js"></script>
+<script src="comum.js"></script>
+<script src="admin.js"></script>
+</body>
+</html>

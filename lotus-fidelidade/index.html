@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#061326">
+<title>Lotus Fidelidade</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600&family=Fredoka:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+  main { max-width: 440px; margin: 0 auto; padding: 16px 20px 48px; }
+  .logo { width: min(300px, 78%); margin: 12px auto 20px; }
+  .troca { display: grid; grid-template-columns: 1fr 1fr; background: var(--navy-2); border-radius: 999px; padding: 4px; margin-bottom: 22px; }
+  .troca button { font: inherit; font-weight: 600; background: none; border: 0; color: var(--suave); padding: 11px 8px; border-radius: 999px; cursor: pointer; }
+  .troca button[aria-selected=true] { background: var(--navy-3); color: var(--creme); }
+  .regra { color: var(--suave); font-size: .93rem; margin-bottom: 20px; text-align: center; }
+  .painel { background: var(--navy-2); border-radius: 22px; padding: 22px; }
+  .oi { margin-bottom: 18px; }
+  .saldo { margin-top: 18px; display: flex; align-items: baseline; gap: 8px; }
+  .saldo .display { font-size: 2.6rem; color: var(--creme); }
+  .saldo span:last-child { color: var(--suave); }
+  .falta { color: var(--suave); margin-top: 2px; }
+  .premio { margin-top: 18px; border: 2px solid var(--verde); border-radius: 16px; padding: 14px 16px; }
+  .premio strong { font-family: "Fredoka", sans-serif; font-size: 1.35rem; color: var(--verde); display: block; }
+  .validade { font-size: .9rem; color: var(--suave); margin-top: 16px; }
+  .historico { margin-top: 26px; }
+  .historico h3 { margin-bottom: 4px; }
+  .sair { background: none; border: 0; color: var(--suave); font: inherit; text-decoration: underline; cursor: pointer; display: block; margin: 26px auto 0; }
+  .vazio { color: var(--suave); padding: 10px 0; }
+</style>
+</head>
+<body>
+<main>
+  <img class="logo" src="logo.png" alt="Lotus Papelaria">
+
+  <div id="aviso-config" class="painel" hidden>
+    <p>O sistema ainda não está configurado. Preencha o arquivo config.js com os dados do Supabase.</p>
+  </div>
+
+  <section id="tela-entrada" hidden>
+    <div class="troca" role="tablist">
+      <button type="button" role="tab" id="aba-ver" aria-selected="true">Ver meus pontos</button>
+      <button type="button" role="tab" id="aba-cad" aria-selected="false">Quero participar</button>
+    </div>
+
+    <p class="regra" id="regra">A cada R$ 1 em compras você ganha 10 pontos. Juntou 1.000, vale R$ 5 na próxima compra.</p>
+
+    <form id="form-ver" class="painel" novalidate>
+      <div class="campo">
+        <label for="ver-nome">Nome completo</label>
+        <input type="text" id="ver-nome" autocomplete="name" placeholder="Como você cadastrou">
+      </div>
+      <div class="campo">
+        <label for="ver-tel">Celular com DDD</label>
+        <input type="tel" id="ver-tel" inputmode="numeric" autocomplete="tel-national" placeholder="(34) 99999-9999">
+      </div>
+      <button class="btn" type="submit">Ver meus pontos</button>
+      <p class="msg erro" id="msg-ver" role="alert"></p>
+    </form>
+
+    <form id="form-cad" class="painel" novalidate hidden>
+      <div class="campo">
+        <label for="cad-nome">Nome completo</label>
+        <input type="text" id="cad-nome" autocomplete="name" placeholder="Nome e sobrenome">
+      </div>
+      <div class="campo">
+        <label for="cad-tel">Celular com DDD</label>
+        <input type="tel" id="cad-tel" inputmode="numeric" autocomplete="tel-national" placeholder="(34) 99999-9999">
+      </div>
+      <div class="campo">
+        <label class="check"><input type="checkbox" id="cad-aceite"> Quero receber novidades e promoções da Lotus pelo WhatsApp.</label>
+      </div>
+      <button class="btn verde" type="submit">Criar minha conta</button>
+      <p class="msg erro" id="msg-cad" role="alert"></p>
+    </form>
+  </section>
+
+  <section id="tela-pontos" hidden>
+    <div class="painel">
+      <h1 class="oi" id="oi">Oi!</h1>
+      <div class="petalas" id="petalas" aria-hidden="true"></div>
+      <div class="saldo"><span class="display" id="saldo">0</span><span>pontos</span></div>
+      <p class="falta" id="falta"></p>
+      <div class="premio" id="premio" hidden>
+        <strong id="premio-valor">R$ 0,00</strong>
+        para usar na sua compra. É só pedir no caixa.
+      </div>
+      <p class="validade" id="validade"></p>
+    </div>
+
+    <div class="historico">
+      <h3>Suas movimentações</h3>
+      <ul class="extrato" id="extrato"></ul>
+    </div>
+
+    <button type="button" class="sair" id="sair">Sair</button>
+  </section>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script src="config.js"></script>
+<script src="comum.js"></script>
+<script src="cliente.js"></script>
+</body>
+</html>
